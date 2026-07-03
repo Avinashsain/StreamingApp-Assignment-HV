@@ -1,0 +1,40 @@
+{{- range $name, $svc := .Values.services }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $name }}
+  labels: { app: {{ $name }} }
+spec:
+  replicas: {{ $svc.replicas }}
+  selector:
+    matchLabels: { app: {{ $name }} }
+  template:
+    metadata:
+      labels: { app: {{ $name }} }
+    spec:
+      containers:
+        - name: {{ $name }}
+          image: "{{ $.Values.image.registry }}/{{ $svc.repo }}:{{ $.Values.image.tag }}"
+          ports: [{ containerPort: {{ $svc.port }} }]
+          env:
+            - name: PORT
+              value: {{ $svc.port | quote }}
+            - name: MONGO_URI
+              value: {{ $.Values.mongo.uri | quote }}
+            - name: CLIENT_URLS
+              value: {{ $.Values.env.clientUrls | quote }}
+            - name: AWS_REGION
+              value: {{ $.Values.env.awsRegion | quote }}
+            - name: AWS_S3_BUCKET
+              value: {{ $.Values.env.s3Bucket | quote }}
+            - name: JWT_SECRET
+              valueFrom: { secretKeyRef: { name: streamingapp-secrets, key: JWT_SECRET } }
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom: { secretKeyRef: { name: streamingapp-secrets, key: AWS_ACCESS_KEY_ID } }
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom: { secretKeyRef: { name: streamingapp-secrets, key: AWS_SECRET_ACCESS_KEY } }
+          resources:
+            requests: { cpu: 100m, memory: 128Mi }
+            limits:   { cpu: 500m, memory: 512Mi }
+---
+{{- end }}

@@ -1,0 +1,24 @@
+image:
+  registry: <ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com
+  tag: v1
+
+env:
+  jwtSecret: "supersecretchangeme"
+  clientUrls: "http://localhost:3000"      # update to frontend ELB URL after first deploy
+  awsRegion: "us-west-2"
+  s3Bucket: "streamingappbucketb15"
+  awsAccessKeyId: ""                        # IAM user key with S3 access (for video upload/playback)
+  awsSecretAccessKey: ""
+
+mongo:
+  uri: "mongodb://mongo:27017/streamingapp"
+
+services:
+  auth:      { repo: streamingapp/auth,      port: 3001, replicas: 1, serviceType: LoadBalancer }
+  streaming: { repo: streamingapp/streaming, port: 3002, replicas: 1, serviceType: LoadBalancer }
+  admin:     { repo: streamingapp/admin,     port: 3003, replicas: 1, serviceType: LoadBalancer }
+  chat:      { repo: streamingapp/chat,      port: 3004, replicas: 1, serviceType: LoadBalancer }
+
+frontend:
+  repo: streamingapp/frontend
+  replicas: 1
