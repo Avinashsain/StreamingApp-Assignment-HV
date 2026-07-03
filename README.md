@@ -54,9 +54,6 @@ flowchart LR
   SNS --> Email[Email Notifications]
   User((Users)) -->|5x ELB| FE & AU & ST & AD & CH
 ```
-
-![Architecture overview](./screenshots/architecture.png)
-
 ---
 
 ## Tech Stack
