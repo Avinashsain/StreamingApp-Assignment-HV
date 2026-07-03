@@ -8,7 +8,7 @@ pipeline {
     K8S_NAMESPACE = 'streamingapp'
     AWS_CREDENTIALS_ID = 'aws-jenkins'
     // Enable after Part 7 (SNS):
-    // SNS_TOPIC_ARN = 'arn:aws:sns:us-east-1:251478238405:streamingapp-alerts'
+    SNS_TOPIC_ARN = 'arn:aws:sns:us-east-1:251478238405:streamingapp-alerts'
 
     // Production frontend URLs — real ELB hostnames
     FE_AUTH       = 'http://abe68b9e3cef1432d84ddfd62d921607-152744616.us-east-1.elb.amazonaws.com:3001/api'
