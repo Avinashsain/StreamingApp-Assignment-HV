@@ -73,7 +73,7 @@ pipeline {
       }
     }
 
-    stage('Deploy to EKS') {
+    /*stage('Deploy to EKS') {
       steps {
         script {
           withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: env.AWS_CREDENTIALS_ID]]) {
@@ -87,7 +87,7 @@ pipeline {
           }
         }
       }
-    }
+    }*/
   }
 
   post {
