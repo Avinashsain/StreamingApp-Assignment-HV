@@ -7,7 +7,7 @@
 Forked `UnpredictablePrashant/StreamingApp`, added the original as `upstream` for syncing:
 
 ```bash
-git clone https://github.com/Avinashsain/StreamingApp-Assignment-HVC.git
+git clone https://github.com/Avinashsain/StreamingApp-Assignment-HV.git
 git remote add upstream https://github.com/UnpredictablePrashant/StreamingApp.git
 # sync when needed:
 git fetch upstream && git merge upstream/main && git push origin main
