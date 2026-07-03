@@ -7,7 +7,7 @@ pipeline {
     RELEASE_NAME = 'streamingapp'
     K8S_NAMESPACE = 'streamingapp'
     AWS_CREDENTIALS_ID = 'aws-jenkins'
-    // Set after Part 7: SNS_TOPIC_ARN = 'arn:aws:sns:us-east-1:<ACCOUNT_ID>:streamingapp-alerts'
+    // Set after Part 7: SNS_TOPIC_ARN = 'arn:aws:sns:us-east-1:251478238405:streamingapp-alerts'
     // Set after Part 5 (backend ELB DNS names):
     FE_AUTH   = 'http://<auth-elb>.us-east-1.elb.amazonaws.com:3001/api'
     FE_STREAM = 'http://<streaming-elb>.us-east-1.elb.amazonaws.com:3002/api'
@@ -73,7 +73,7 @@ pipeline {
       }
     }
 
-    /*stage('Deploy to EKS') {
+    stage('Deploy to EKS') {
       steps {
         script {
           withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: env.AWS_CREDENTIALS_ID]]) {
@@ -87,7 +87,7 @@ pipeline {
           }
         }
       }
-    }*/
+    }
   }
 
   post {
