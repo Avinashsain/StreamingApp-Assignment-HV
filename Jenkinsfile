@@ -50,7 +50,7 @@ pipeline {
           ]
           services.each { svc ->
             def img = "${env.ECR}/${env.ECR_PREFIX}/${svc.name}:${env.IMAGE_TAG}"
-            sh "docker build -t ${img} -f ${svc.context}/${svc.dockerfile} ${svc.context}"
+            sh "docker build --platform linux/amd64 -t ${img} -f ${svc.context}/${svc.dockerfile} ${svc.context}"
             sh "docker push ${img}"
           }
         }
