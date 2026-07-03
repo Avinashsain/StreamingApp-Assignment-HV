@@ -3,7 +3,7 @@ image:
   tag: v1
 
 env:
-  jwtSecret: "supersecretchangeme"
+  jwtSecret: "9584bab99c7446823d4ffe263f3c94454de72e68eda16baf"
   clientUrls: "http://localhost:3000"      # update to frontend ELB URL after first deploy
   awsRegion: "us-west-2"
   s3Bucket: "streamingappbucketb15"
