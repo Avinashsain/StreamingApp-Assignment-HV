@@ -1,5 +1,5 @@
 image:
-  registry: <ACCOUNT_ID>.dkr.ecr.us-east-1.amazonaws.com
+  registry: 251478238405.dkr.ecr.us-east-1.amazonaws.com
   tag: v1
 
 env:
