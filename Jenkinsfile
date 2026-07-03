@@ -10,13 +10,13 @@ pipeline {
     // Enable after Part 7 (SNS):
     // SNS_TOPIC_ARN = 'arn:aws:sns:us-east-1:251478238405:streamingapp-alerts'
 
-    // Production frontend URLs — real ELB hostnames from ./scripts/get-service-urls.sh
-    FE_AUTH       = 'http://PASTE-AUTH-ELB-HOSTNAME:3001/api'
-    FE_STREAM     = 'http://PASTE-STREAMING-ELB-HOSTNAME:3002/api'
-    FE_STREAM_PUB = 'http://PASTE-STREAMING-ELB-HOSTNAME:3002'
-    FE_ADMIN      = 'http://PASTE-ADMIN-ELB-HOSTNAME:3003/api/admin'
-    FE_CHAT       = 'http://PASTE-CHAT-ELB-HOSTNAME:3004/api/chat'
-    FE_CHAT_SOCK  = 'http://PASTE-CHAT-ELB-HOSTNAME:3004'
+    // Production frontend URLs — real ELB hostnames
+    FE_AUTH       = 'http://abe68b9e3cef1432d84ddfd62d921607-152744616.us-east-1.elb.amazonaws.com:3001/api'
+    FE_STREAM     = 'http://a279ed5848615483bb910f00a1e41479-1064057686.us-east-1.elb.amazonaws.com:3002/api'
+    FE_STREAM_PUB = 'http://a279ed5848615483bb910f00a1e41479-1064057686.us-east-1.elb.amazonaws.com:3002'
+    FE_ADMIN      = 'http://a3361919d28524d818fd3626f3987bd1-1540659810.us-east-1.elb.amazonaws.com:3003/api/admin'
+    FE_CHAT       = 'http://a18952c65fe4a43df893ec5b59a5bb14-2024728726.us-east-1.elb.amazonaws.com:3004/api/chat'
+    FE_CHAT_SOCK  = 'http://a18952c65fe4a43df893ec5b59a5bb14-2024728726.us-east-1.elb.amazonaws.com:3004'
   }
 
   options { timestamps(); disableConcurrentBuilds() }

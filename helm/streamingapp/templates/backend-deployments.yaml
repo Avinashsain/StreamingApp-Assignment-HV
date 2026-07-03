@@ -5,7 +5,6 @@ metadata:
   name: {{ $name }}
   labels: { app: {{ $name }} }
 spec:
-  replicas: {{ $svc.replicas }}
   selector:
     matchLabels: { app: {{ $name }} }
   template:
@@ -28,11 +27,14 @@ spec:
             - name: AWS_S3_BUCKET
               value: {{ $.Values.env.s3Bucket | quote }}
             - name: JWT_SECRET
-              valueFrom: { secretKeyRef: { name: streamingapp-secrets, key: JWT_SECRET } }
+              valueFrom:
+                secretKeyRef: { name: streamingapp-secrets, key: JWT_SECRET }
             - name: AWS_ACCESS_KEY_ID
-              valueFrom: { secretKeyRef: { name: streamingapp-secrets, key: AWS_ACCESS_KEY_ID } }
+              valueFrom:
+                secretKeyRef: { name: streamingapp-secrets, key: AWS_ACCESS_KEY_ID }
             - name: AWS_SECRET_ACCESS_KEY
-              valueFrom: { secretKeyRef: { name: streamingapp-secrets, key: AWS_SECRET_ACCESS_KEY } }
+              valueFrom:
+                secretKeyRef: { name: streamingapp-secrets, key: AWS_SECRET_ACCESS_KEY }
           resources:
             requests: { cpu: 100m, memory: 128Mi }
             limits:   { cpu: 500m, memory: 512Mi }
