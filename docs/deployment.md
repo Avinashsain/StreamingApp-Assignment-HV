@@ -151,6 +151,10 @@ Each backend runs under an HPA (CPU 70%, max 4 replicas); the managed nodegroup 
 # 3-5. optional: log groups, alarm + SNS topic, ECR repositories
 # Ends with an executed verification (clusters, ELBs, volumes, instances, log groups all empty)
 ```
+![cleanup-1](../screenshots/cleanup/Screenshot-1.png)
+![cleanup-2](../screenshots/cleanup/Screenshot-2.png)
+![cleanup-3](../screenshots/cleanup/Screenshot-3.png)
+![cleanup-4](../screenshots/cleanup/Screenshot-4.png)
 
 Verified no leftover load balancers or unattached EBS volumes after deletion.
 
