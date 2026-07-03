@@ -4,7 +4,7 @@ image:
 
 env:
   jwtSecret: "9584bab99c7446823d4ffe263f3c94454de72e68eda16baf"
-  clientUrls: "http://localhost:3000"      # update to frontend ELB URL after first deploy
+  clientUrls: "http://a2ed5a67cfacb4d8097531e8bcf7e050-1200332828.us-east-1.elb.amazonaws.com"
   awsRegion: "us-west-2"
   s3Bucket: "streamingappbucketb15"
   awsAccessKeyId: ""                        # IAM user key with S3 access (for video upload/playback)
