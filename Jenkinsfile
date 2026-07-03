@@ -7,14 +7,16 @@ pipeline {
     RELEASE_NAME = 'streamingapp'
     K8S_NAMESPACE = 'streamingapp'
     AWS_CREDENTIALS_ID = 'aws-jenkins'
-    // Set after Part 7: SNS_TOPIC_ARN = 'arn:aws:sns:us-east-1:251478238405:streamingapp-alerts'
-    // Set after Part 5 (backend ELB DNS names):
-    FE_AUTH   = 'http://<auth-elb>.us-east-1.elb.amazonaws.com:3001/api'
-    FE_STREAM = 'http://<streaming-elb>.us-east-1.elb.amazonaws.com:3002/api'
-    FE_STREAM_PUB = 'http://<streaming-elb>.us-east-1.elb.amazonaws.com:3002'
-    FE_ADMIN  = 'http://<admin-elb>.us-east-1.elb.amazonaws.com:3003/api/admin'
-    FE_CHAT   = 'http://<chat-elb>.us-east-1.elb.amazonaws.com:3004/api/chat'
-    FE_CHAT_SOCK = 'http://<chat-elb>.us-east-1.elb.amazonaws.com:3004'
+    // Enable after Part 7 (SNS):
+    // SNS_TOPIC_ARN = 'arn:aws:sns:us-east-1:251478238405:streamingapp-alerts'
+
+    // Production frontend URLs — real ELB hostnames from ./scripts/get-service-urls.sh
+    FE_AUTH       = 'http://PASTE-AUTH-ELB-HOSTNAME:3001/api'
+    FE_STREAM     = 'http://PASTE-STREAMING-ELB-HOSTNAME:3002/api'
+    FE_STREAM_PUB = 'http://PASTE-STREAMING-ELB-HOSTNAME:3002'
+    FE_ADMIN      = 'http://PASTE-ADMIN-ELB-HOSTNAME:3003/api/admin'
+    FE_CHAT       = 'http://PASTE-CHAT-ELB-HOSTNAME:3004/api/chat'
+    FE_CHAT_SOCK  = 'http://PASTE-CHAT-ELB-HOSTNAME:3004'
   }
 
   options { timestamps(); disableConcurrentBuilds() }
@@ -82,7 +84,9 @@ pipeline {
               helm upgrade --install "$RELEASE_NAME" ./helm/streamingapp \
                 --namespace "$K8S_NAMESPACE" --create-namespace \
                 --set image.tag="$IMAGE_TAG" \
-                --set image.registry="$ECR"
+                --set image.registry="$ECR" \
+                --set env.awsAccessKeyId="$AWS_ACCESS_KEY_ID" \
+                --set env.awsSecretAccessKey="$AWS_SECRET_ACCESS_KEY"
             '''
           }
         }

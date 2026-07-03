@@ -2,6 +2,10 @@
 # Builds all 5 images and pushes them to ECR, tagged with the git commit SHA.
 # Same logic as the Jenkinsfile - lets you build/push by hand without Jenkins.
 #
+# NOTE: images are built for linux/amd64 because the EKS worker nodes are x86_64.
+# Building on Apple Silicon without this flag produces arm64 images that fail
+# on the nodes with "no match for platform in manifest".
+#
 # Usage:
 #   ./scripts/build-and-push-ecr.sh                    # backends + placeholder frontend
 #   FE_AUTH=http://... FE_STREAM=http://... FE_STREAM_PUB=http://... \
@@ -11,6 +15,7 @@ set -euo pipefail
 
 AWS_REGION="${AWS_REGION:-us-east-1}"
 ECR_PREFIX="${ECR_PREFIX:-streamingapp}"
+PLATFORM="${PLATFORM:-linux/amd64}"
 IMAGE_TAG="${IMAGE_TAG:-$(git rev-parse --short=12 HEAD 2>/dev/null || date +%Y%m%d%H%M%S)}"
 AWS_ACCOUNT_ID="${AWS_ACCOUNT_ID:-$(aws sts get-caller-identity --query Account --output text)}"
 ECR_REGISTRY="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
@@ -37,14 +42,14 @@ dockerfiles=(Dockerfile streamingService/Dockerfile adminService/Dockerfile chat
 
 for i in "${!services[@]}"; do
   image="${ECR_REGISTRY}/${ECR_PREFIX}/${services[$i]}:${IMAGE_TAG}"
-  echo ">> Building ${image}"
-  docker build -t "${image}" -f "${contexts[$i]}/${dockerfiles[$i]}" "${contexts[$i]}"
+  echo ">> Building ${image} (${PLATFORM})"
+  docker build --platform "${PLATFORM}" -t "${image}" -f "${contexts[$i]}/${dockerfiles[$i]}" "${contexts[$i]}"
   docker push "${image}"
 done
 
 fe_image="${ECR_REGISTRY}/${ECR_PREFIX}/frontend:${IMAGE_TAG}"
-echo ">> Building ${fe_image}"
-docker build -t "${fe_image}" \
+echo ">> Building ${fe_image} (${PLATFORM})"
+docker build --platform "${PLATFORM}" -t "${fe_image}" \
   --build-arg REACT_APP_AUTH_API_URL="${FE_AUTH}" \
   --build-arg REACT_APP_STREAMING_API_URL="${FE_STREAM}" \
   --build-arg REACT_APP_STREAMING_PUBLIC_URL="${FE_STREAM_PUB}" \
