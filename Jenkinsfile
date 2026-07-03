@@ -60,7 +60,7 @@ pipeline {
     stage('Build Frontend Image') {
       steps {
         sh '''
-          docker build -t $ECR/$ECR_PREFIX/frontend:$IMAGE_TAG \
+          docker build --platform linux/amd64 -t $ECR/$ECR_PREFIX/frontend:$IMAGE_TAG \
             --build-arg REACT_APP_AUTH_API_URL=$FE_AUTH \
             --build-arg REACT_APP_STREAMING_API_URL=$FE_STREAM \
             --build-arg REACT_APP_STREAMING_PUBLIC_URL=$FE_STREAM_PUB \
