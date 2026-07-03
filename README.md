@@ -100,7 +100,7 @@ flowchart LR
 ## Repository Structure
 
 ```
-StreamingApp-Assignment-HVC/
+StreamingApp-Assignment-HV/
 ├── Jenkinsfile                     # CI/CD pipeline (build → ECR → helm deploy → SNS)
 ├── docker-compose.yml              # Local development
 ├── frontend/                       # React app + multi-stage Dockerfile
@@ -129,8 +129,8 @@ StreamingApp-Assignment-HVC/
 Forked the upstream repository and configured syncing:
 
 ```bash
-git clone https://github.com/Avinashsain/StreamingApp-Assignment-HVC.git
-cd StreamingApp-Assignment-HVC
+git clone https://github.com/Avinashsain/StreamingApp-Assignment-HV.git
+cd StreamingApp-Assignment-HV
 git remote add upstream https://github.com/UnpredictablePrashant/StreamingApp.git
 
 # Sync with upstream whenever needed:
